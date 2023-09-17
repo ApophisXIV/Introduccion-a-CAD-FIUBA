@@ -1,0 +1,30 @@
+El dibujo tecnico es util para transmitir informacion tecnica pues 
+incluye numeros, cotas, etc
+
+Proyecciones en dibujo tecnico:
+Oblicua e Isometrica (1 sola vista)
+Multivista (3 proyecciones)
+
+Estas son lo que se llama proyecciones paralelas. Conservan las relaciones
+entre las formas y tamaños de los objetos
+
+Proyecciones en dibujo:
+Perspectiva -> Da la idea de realidad sobre la vista del objeto a representar, como si lo viera con el ojo
+
+-----------------------------------
+
+Proyeccion isometrica
+-Implica rotacion de 45 grados sobre el objeto
+-Los 3 ejes forman angulos de 120 y se llaman ejes isometricos
+-Los planos paralelos a los del cubo son planos isometricos
+-El factor de reduccion al proyectar es de 0,82
+
+Tecnicas de dibujo
+-Boxing -> Caja imaginaria que encierra al objeto
+-Si no tiene formas "rectas" se busca las intersecciones con planos isometricos. Luego se unen los puntos o se interpolan en caso de curvas
+-Los circulos en isometrico se transforman en elipses, para dibujarlas hay que identificar el cuadrado isometrico
+->  -Ubicar centro de elipse
+    -Cuadrado isometrico
+    -Trazar rectas hacia los puntos tangentes
+    -Definir 4 puntos centrales
+    -Usar arcos para trazar (Comentario propio: en la vida real se usan pistoles)
