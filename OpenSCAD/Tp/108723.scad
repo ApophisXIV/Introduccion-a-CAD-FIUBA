@@ -1,103 +1,4 @@
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 /* -------------------------------------------------------------------------- */
 /*                                 Parammeters                                */
 /* -------------------------------------------------------------------------- */
@@ -125,10 +26,10 @@ grill_rev_step         = 45;
 
 // --Speaker grill exotic pattern params
 
-grill_exotic             = false;
-grill_exotic_coef        = [ 1, 3 ];
-grill_exotic_spacing     = 4;
-grill_exotic_figure_step = 40;
+grill_exotic             = false;   // NOTE - Change to true to use exotic pattern
+grill_exotic_coef        = [1, 21 ];
+grill_exotic_spacing     = 10;
+grill_exotic_figure_step = 50;
 
 // --Cantilever snap-fit params
 
@@ -164,7 +65,7 @@ color("green") for (x_off = [box_l / 4:box_l / 2:box_l - box_l / 4]) {
 	// translate([ x_off, box_w / 2, 2 * box_thickness ]) cylinder(r = grill_r, h = box_thickness);    // NOTE - DEBUG
 }
 
-// color("teal") box_cover();
+color("teal") box_cover();
 
 for (i = [0:1]) {
 	translate([ i * box_l, i * (box_w + canteliver_fillet_h), 0 ]) rotate([ 0, 0, i * 180 ]) {
