@@ -1,4 +1,101 @@
-/**
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 /* -------------------------------------------------------------------------- */
@@ -60,25 +157,25 @@ screw_hole_r         = 1.5;
 
 box();
 
-handle([ box_l / 8 + handle_x_offset, box_w / 2 - (handle_y_offset), -(box_h / 2 + handle_z_offset) ]);
+color("yellow") handle([ box_l / 8 + handle_x_offset, box_w / 2 - (handle_y_offset), -(box_h / 2 + handle_z_offset) ]);
 
-for (x_off = [box_l / 4:box_l / 2:box_l - box_l / 4]) {
+color("green") for (x_off = [box_l / 4:box_l / 2:box_l - box_l / 4]) {
 	speaker_support(tr = [ x_off, box_w / 2, box_thickness ]);
 	// translate([ x_off, box_w / 2, 2 * box_thickness ]) cylinder(r = grill_r, h = box_thickness);    // NOTE - DEBUG
 }
 
-for (i = [0:1], j = [0:1]) {
+// color("teal") box_cover();
+
+for (i = [0:1]) {
 	translate([ i * box_l, i * (box_w + canteliver_fillet_h), 0 ]) rotate([ 0, 0, i * 180 ]) {
-		canteliver_snap_fit_w_release_male();
-		canteliver_snap_fit_w_release_female();
+		color("violet") canteliver_snap_fit_w_release_female();
+		color("pink") canteliver_snap_fit_w_release_male();
 	}
 }
 
-screw_holes();
+color("cyan") screw_holes();
 
-rubber_feet();
-
-box_cover();
+color("red") rubber_feet();
 
 /* -------------------------------------------------------------------------- */
 /*                            Functions and modules                           */
@@ -138,22 +235,12 @@ module speaker_grill_holes(r, thickness, tr = [ 0, 0, 0 ]) {
 		for (i = [0:2 * grill_hole_r + grill_hole_r:r])    //
 			for (j = [0:180 / floor(i / grill_hole_r):360])
 				translate([ i * cos(j), i * sin(j), -1 ])
-				    cylinder(h = thickness + 2, r = grill_hole_r, $fn = 50);
+				    cylinder(h = thickness + 2, r = grill_hole_r);
 	}
 }
 
 /* ----------------------------- Speaker support ---------------------------- */
-module speaker_support(tr = [ 0, 0, 0 ], rot) {
-
-	// Revolve around the Z axis
-	//              [Z]
-	//    ____       |
-
-	//  /  ___\    __|__
-	// /  / ======/=====\======
-	// |  |_____ ( ( | ) )
-	// |________|  ( | )
-	//               |
+module speaker_support(tr = [ 0, 0, 0 ]) {
 
 	translate(tr)
 	    difference() {
@@ -178,7 +265,11 @@ module handle(tr = [ 0, 0, 0 ]) {
 	minkowski() {
 		rotate([ 180, 0, 0 ])
 		    translate(tr) {
-			linear_extrude(height = 3) polygon(points = [ for (i = [0:5:315])[i / 4, sin(4 * i) * 1], [ 78.75, 0 ], [ 78.75, 4 ], [ 58.75, 6 ], [ 20, 6 ], [ 0, 4 ], [ 0, 0 ] ]);
+			linear_extrude(height = 3)
+			    polygon(points = [ for (i = [0:5:315])
+				                       [i / 4, sin(4 * i) * 1],
+				                   [ 78.75, 0 ], [ 78.75, 4 ], [ 58.75, 6 ],
+				                   [ 20, 6 ], [ 0, 4 ], [ 0, 0 ] ]);
 			translate([ -4, -10, 0 ]) cube(size = [ 4, 15, 3 ]);
 			translate([ 78.75, -10, 0 ]) cube(size = [ 4, 15, 3 ]);
 		}
@@ -190,13 +281,19 @@ module handle(tr = [ 0, 0, 0 ]) {
 module screw_holes(only_screws = false) {
 	for (i = [0:1], j = [0:1]) {
 		translate([
-			i * (box_l - box_thickness - screw_hole_support_r * 2) + screw_hole_support_r + box_min_thickness,
-			j * (box_w - box_thickness - screw_hole_support_r * 2) + screw_hole_support_r + box_min_thickness,
+			i * (box_l - box_thickness - screw_hole_support_r * 2) +
+			    screw_hole_support_r + box_min_thickness,
+			j * (box_w - box_thickness - screw_hole_support_r * 2) +
+			    screw_hole_support_r + box_min_thickness,
 			0
 		]) {
 			difference() {
-				if (!only_screws) translate([ 0, 0, box_thickness ]) cylinder(r = screw_hole_support_r, h = box_h - box_thickness);
-				cylinder(r = screw_hole_r - 0.15, h = box_h + 0.1);    // NOTE  -0.15 is a hack to make the screw holes fit and 0.1 is also a hack to avoid ghost faces
+				if (!only_screws) translate([ 0, 0, box_thickness ])
+					cylinder(r = screw_hole_support_r, h = box_h - box_thickness);
+
+				// NOTE  -0.15 is a hack to make the screw holes fit
+				// and 0.1 is also a hack to avoid ghost faces
+				cylinder(r = screw_hole_r - 0.15, h = box_h + 0.1);
 			}
 		}
 	}
@@ -225,7 +322,9 @@ module box() {
 
 		for (x_off = [box_l / 4:box_l / 2:box_l - box_l / 4]) {
 			if (grill_exotic)
-				speaker_grill_exotic(grill_r = grill_r, grill_thickness = box_thickness, tr = [ x_off, box_w / 2, 0 ]);
+				speaker_grill_exotic(grill_r         = grill_r,
+				                     grill_thickness = box_thickness,
+				                     tr              = [ x_off, box_w / 2, 0 ]);
 			else
 				speaker_grill_holes(grill_r, box_thickness, tr = [ x_off, box_w / 2, 0 ]);
 		}
@@ -234,15 +333,19 @@ module box() {
 
 /* --------------------------- Cantilever snap-fit -------------------------- */
 module canteliver_snap_fit_w_release_male(fillet_offset = 0) {
-	// Snap joints
 	minkowski() {
 		union() {
-			translate([ 2 * box_thickness + canteliver_l / 2, box_w / 2 - canteliver_l + canteliver_fillet_h, box_h - canteliver_h ]) rotate([ 0, 2, 0 ]) cube(size = [
-				canteliver_l, canteliver_w, canteliver_h
-			]);
-			translate([ box_thickness + canteliver_pivot_offset + canteliver_l / 2, box_w / 2 - canteliver_l + canteliver_fillet_h, box_h - canteliver_h ]) rotate([ 0, -30, 0 ]) cube(size = [
-				canteliver_l, canteliver_w, canteliver_pivot_h + fillet_offset
-			]);
+			translate([ 2 * box_thickness + canteliver_l / 2,
+				        box_w / 2 - canteliver_l + canteliver_fillet_h, box_h -
+				        canteliver_h ])
+			    rotate([ 0, 2, 0 ]) cube(size = [ canteliver_l, canteliver_w, canteliver_h ]);
+			translate([ box_thickness + canteliver_pivot_offset + canteliver_l / 2,
+				        box_w / 2 - canteliver_l + canteliver_fillet_h,
+				        box_h -
+				        canteliver_h ])
+			    rotate([ 0, -30, 0 ]) cube(size = [ canteliver_l,
+				                                    canteliver_w, canteliver_pivot_h +
+				                                    fillet_offset ]);
 		}
 		rotate([ 90, 0, 0 ]) cylinder(r = canteliver_fillet, h = canteliver_fillet_h);
 	}
@@ -250,17 +353,18 @@ module canteliver_snap_fit_w_release_male(fillet_offset = 0) {
 
 module canteliver_snap_fit_w_release_female() {
 	difference() {
-		// Wall
-		translate([ box_thickness, box_w / 2 - 2 * canteliver_l, box_thickness ])
-		    cube(size = [
-			    box_thickness, 4 * canteliver_w, box_h - box_thickness
-		    ]);
+		translate([ box_thickness,
+			        box_w / 2 - 2 * canteliver_l,
+			        box_thickness ])
+		    cube(size = [ box_thickness, 4 * canteliver_w, box_h - box_thickness ]);
 
-		translate([ box_thickness + canteliver_fillet, box_w / 2 - canteliver_l, box_h - (canteliver_h / 2 + canteliver_fillet_h) ])
+		translate([ box_thickness + canteliver_fillet,
+			        box_w / 2 - canteliver_l,
+			        box_h - (canteliver_h / 2 + canteliver_fillet_h) ])
 		    rotate([ 0, 75, 0 ])
-		        cube(size = [
-			        canteliver_l + 3, canteliver_fillet_h + canteliver_w, canteliver_pivot_h + canteliver_h
-		        ]);
+		        cube(size = [ canteliver_l + 3,
+			                  canteliver_fillet_h + canteliver_w, canteliver_pivot_h +
+			                  canteliver_h ]);
 	}
 }
 
@@ -293,26 +397,19 @@ module box_cover() {
 module rubber_feet() {
 	for (i = [0:1], j = [0:1]) {
 		rotate([ 90, 0, 0 ])
-		    translate([
-			    i * (box_l - box_thickness - screw_hole_support_r * 2) + screw_hole_support_r + box_min_thickness,
-			    j * (box_w - box_thickness - screw_hole_support_r * 2) + screw_hole_support_r + box_min_thickness,
-			    -box_w
-		    ]) {
+		    translate([ i * (box_l - box_thickness - 3.5 * box_rounding) +
+			                box_min_thickness + screw_hole_support_r + box_rounding,
+			            j * (box_w - box_thickness - 2 * screw_hole_support_r) +
+			                screw_hole_support_r + box_min_thickness,
+			            -box_w ]) {
 			hull() {
-				translate([ 0, 0, -box_thickness ]) cylinder(r = screw_hole_support_r, h = box_thickness);
-				translate([ 0, 0, -box_thickness - 1 ]) cylinder(r = screw_hole_r, h = box_thickness + 1);
+				translate([ 0, 0, -box_thickness ])
+				    cylinder(r = screw_hole_support_r,
+				             h = box_thickness);
+				translate([ 0, 0, -box_thickness - 1 ])
+				    cylinder(r = screw_hole_r,
+				             h = box_thickness + box_min_thickness);
 			}
 		}
 	}
 }
-
-/* ------------------------------ Music symbol ------------------------------ */
-module music_symbol() {
-	difference() {
-		circle(5);                                                                 // Crea un círculo
-		translate([ 0, 0, -1 ]) circle(4);                                         // Crea un círculo más pequeño en el centro
-		translate([ 0, 0, -2 ]) cylinder(h = 6, r1 = 0, r2 = 4, center = true);    // Agrega un trazo vertical
-	}
-}
-
-// music_symbol();
