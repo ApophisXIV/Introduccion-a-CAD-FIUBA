@@ -26,8 +26,8 @@ grill_rev_step         = 45;
 
 // --Speaker grill exotic pattern params
 
-grill_exotic             = false;   // NOTE - Change to true to use exotic pattern
-grill_exotic_coef        = [1, 21 ];
+grill_exotic             = false;    // NOTE - Change to true to use exotic pattern
+grill_exotic_coef        = [ 1, 21 ];
 grill_exotic_spacing     = 10;
 grill_exotic_figure_step = 50;
 
