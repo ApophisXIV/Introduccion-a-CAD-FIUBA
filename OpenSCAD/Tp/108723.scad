@@ -56,6 +56,7 @@ screw_hole_r         = 1.5;
 /*                               Complete Object                              */
 /* -------------------------------------------------------------------------- */
 
+rotate([-90,0,0]){
 box();
 
 color("yellow") handle([ box_l / 8 + handle_x_offset, box_w / 2 - (handle_y_offset), -(box_h / 2 + handle_z_offset) ]);
@@ -77,7 +78,7 @@ for (i = [0:1]) {
 color("cyan") screw_holes();
 
 color("red") rubber_feet();
-
+}
 /* -------------------------------------------------------------------------- */
 /*                            Functions and modules                           */
 /* -------------------------------------------------------------------------- */

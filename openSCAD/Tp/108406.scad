@@ -1,4 +1,3 @@
-// Parametros
 $fn               = 100;
 h                 = 40;
 l                 = 120;
@@ -26,7 +25,7 @@ module patitas() {
 	}
 }
 
-color(c = "blue", alpha = 1.0) {
+color(c = "brown", alpha = 1.0) {
 
 	for (i = [0:1], j = [0:1]) {
 
@@ -56,6 +55,7 @@ color(c = "blue", alpha = 1.0) {
 
 // Figura principal
 
+color("teal")
 difference() {
 	minkowski() {
 		cube([ 116, 38, 36 ]);
@@ -70,6 +70,7 @@ difference() {
 // }
 
 // Manija
+color("beige"){
 translate(v = [ l / 6 - 2, a / 2, h + 1 ]) {
 	rotate(a = 90, v = [ 1, 0, 0 ]) {
 		minkowski() {
@@ -86,34 +87,34 @@ translate(v = [ l / 6 - 2, a / 2, h + 1 ]) {
 	}
 }
 
-color(c = "blue", alpha = 1.0) {
-	translate([ l / 6 + 0.5, a / 2 - 0.5, h ]) cylinder(h = 2, r = 7);
-	translate([ l - (l / 6) - 0.5, a / 2 - 0.5, h ]) cylinder(h = 2, r = 7);
+translate([ l / 6 + 0.5, a / 2 - 0.5, h ]) cylinder(h = 2, r = 7);
+translate([ l - (l / 6) - 0.5, a / 2 - 0.5, h ]) cylinder(h = 2, r = 7);
 }
 
 // translate([ 0, 0, 0 ]) rotate([ 90, 0, 0 ]) cylinder(r = 3, h = 40, $fn = 100);
 
 // Agujeros
 
+color("yellow")
 for (i = [1:2]) {
 
 	difference() {
-		translate([ (i % 2) ? l - 3 : 3, a, !(i % 2) ? h - 3 : 3 ]) rotate([ 90, 0, 0 ]) cylinder(r = 3, h = a);
-		translate([ (i % 2) ? l - 3 : 3, a + 0.5, !(i % 2) ? h - 3 : 3 ]) rotate([ 90, 0, 0 ]) cylinder(r = 1, h = a + 0.5);
+		translate([ (i % 2) ? l - 3 : 3, a+ 0.1, !(i % 2) ? h - 3 : 3 ]) rotate([ 90, 0, 0 ]) cylinder(r = 3-0.1, h = a);
+		translate([ (i % 2) ? l - 3 : 3, a+ 0.5, !(i % 2) ? h - 3 : 3 ]) rotate([ 90, 0, 0 ]) cylinder(r = 1, h = a + 0.5);
 	}
 
 	difference() {
-		translate([ (i % 2) ? 3 : l - 3, a, !(i % 2) ? h - 3 : 3 ]) rotate([ 90, 0, 0 ]) cylinder(r = 3, h = a);
+		translate([ (i % 2) ? 3 : l - 3, a + 0.1, !(i % 2) ? h - 3 : 3 ]) rotate([ 90, 0, 0 ]) cylinder(r = 3-0.1, h = a);
 		translate([ (i % 2) ? 3 : l - 3, a + 0.5, !(i % 2) ? h - 3 : 3 ]) rotate([ 90, 0, 0 ]) cylinder(r = 1, h = a + 0.5);
 	}
 }
 
 // Tapa
-*difference() {
+difference() {
 
 	minkowski() {
 		translate([ 0, 0, 0 ]) cube([ 116, 1, 36 ]);
-		translate([ 2, 42, 2 ]) rotate([ 90, 0, 0 ]) cylinder(r = 2, h = 1, $fn = 100);
+		translate([ 2, 41, 2 ]) rotate([ 90, 0, 0 ]) cylinder(r = 2, h = 1, $fn = 100);
 	}
 
 	for (i = [1:2]) {
