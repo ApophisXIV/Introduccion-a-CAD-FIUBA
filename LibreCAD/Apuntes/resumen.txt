@@ -27,4 +27,4 @@ Tecnicas de dibujo
     -Cuadrado isometrico
     -Trazar rectas hacia los puntos tangentes
     -Definir 4 puntos centrales
-    -Usar arcos para trazar (Comentario propio: en la vida real se usan pistoles)
+    -Usar arcos para trazar (Comentario propio: en la vida real se usan pistoletes)
