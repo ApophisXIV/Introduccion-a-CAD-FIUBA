@@ -8,6 +8,13 @@ exotic_r            = 1;
 exotic_n            = 3;
 exotic_full_shape_r = 1;
 module exotic_shape() {
+
+    //!NOTE: La decisión de utilizar la funcion hull es principalmente por dos razones:
+    //       1. El renderizado es significantemente más rápido a diferencia
+    //          de la funcion minkowski para el hardware que se dispone
+    //       2. La funcion hull "une tangencialmente" las figuras y convierte en un solido el
+    //          area encerrada. Para la aplicacion que se le da a esta pieza es suficiente
+
 	hull() {
 		for (r = [0:360 / exotic_n:360]) rotate([ 0, 0, r ])
 		    translate([ exotic_full_shape_r, 0, base_h / 4 + 0.1 ]) cylinder(h = base_h / 4, r = exotic_r);
